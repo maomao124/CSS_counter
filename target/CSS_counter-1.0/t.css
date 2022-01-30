@@ -1,0 +1,77 @@
+/*
+  Project name(项目名称)：CSS_counter 
+  File name(文件名): t
+  Author(作者）: mao
+  Author QQ：1296193245
+  GitHub：https://github.com/maomao124/
+  Date(创建日期)： 2022/1/30 
+  Time(创建时间)： 23:10
+  Version(版本): 1.0
+  Description(描述)：
+  CSS 中的计数器类似于变量，可以实现简单的计数功能，并将结果显示在页面上，在早期的网站上应用比较广泛。要实现计数器需要用到以下几个属性：
+counter-reset：创建或者重置计数器；
+counter-increment：递增变量；
+content：插入生成的内容；
+counter() 或 counters()：将计数器的值添加到元素。
+初始化计数器
+要使用计数器首先需要使用 counter-reset 属性来创建一个计数器，这一过程便叫做初始化计数器。counter-reset 属性的语法格式如下：
+counter-reset：none | [<identifier> <integer>]
+参数说明如下：
+none：阻止计数器复位；
+<identifier>：定义计数器的名称；
+<integer>：定义计数器的起始值，默认值为 0，可以为负值。
+计数器自增
+初始化计数器后，可以通过 counter-increment 属性来指定计数器何时自增，语法格式如下：
+counter-increment：none | [<identifier> <integer>]
+参数说明如下：
+none：阻止计数器增加；
+<identifier>：定义要自增的计数器名称；
+<integer>：定义计数器每次增加的数值，默认值为 1，可以为负值。
+显示计数器
+最后，就是如何显示计数器了。要显示计数器您可以使用 counter() 或 counters() 函数，这两个函数的语法格式如下：
+counter(name)
+counters(name, string, list-style-type)
+参数说明如下：
+name：计数器的名称；
+string：当计数器嵌套使用时，用来拼接的字符串；
+list-style-type：计数器显示的风格，可以是 CSS 中允许的任何list-style-type 属性的值。
+ */
+
+body {
+    counter-reset: chapter;
+}
+
+h5, h6 {
+    margin: 5px 0 5px;
+}
+
+h5 {
+    counter-reset: section;
+    counter-increment: chapter;
+}
+
+h6 {
+    counter-increment: section;
+}
+
+h5:before {
+    content: "Chapter " counter(chapter) ". ";
+}
+
+h6:before {
+    content: counter(chapter) "." counter(section) " ";
+}
+
+
+ol {
+    /* 为每个ol元素创建新的计数器实例 */
+    counter-reset: ol-list;
+    list-style-type: none;
+}
+
+li:before {
+    /* 只增加计数器的当前实例 */
+    counter-increment: ol-list;
+    /* 为所有计数器实例增加以“.”分隔的值 */
+    content: counters(ol-list, ".") "、";
+}
